@@ -6,7 +6,7 @@ module.exports.errorHandler = (err, req, res, next) => {
     "errLog.log"
   );
 
-  const status = res.statusCode ? res.statusCode : 500;
-
-  res.status(status).json({ message: err.message });
+  const status = res.statusCode === 200 ? 500 : res.statusCode;
+  console.log(err);
+  res.status(status).json({ message: err?.message });
 };

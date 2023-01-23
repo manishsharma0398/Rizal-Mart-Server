@@ -6,18 +6,24 @@ const cookieParser = require("cookie-parser");
 const { connectToDB } = require("./config/dbConnect");
 const { errorHandler } = require("./middlewares/errorHandler");
 
+const userRoutes = require("./routes/userRoutes");
+
 require("dotenv").config();
 connectToDB();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
+// middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-app.use(errorHandler);
 
 // routes
+app.use("/api/user", userRoutes);
+
+app.use(errorHandler);
 
 mongoose.connection.once("open", () => {
   console.log("Connected to database");

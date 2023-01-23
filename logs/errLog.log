@@ -1,0 +1,36 @@
+22-01-2023	23:04:31	7b8fcfa7-1517-4cc3-b681-f9247a9088a1	MongoServerError: E11000 duplicate key error collection: store.users index: mobile_1 dup key: { mobile: "123456789" }	POST	/api/user/register	undefined
+22-01-2023	23:28:44	f8ac0684-be9e-48eb-aa97-05a68c48baf9	CastError: Cast to ObjectId failed for value "63cd73d657581396d667fa5" (type string) at path "_id" for model "User"	GET	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:29:32	e765bd39-4037-4391-a1c1-d9dd9c4efe88	CastError: Cast to ObjectId failed for value "63cd73d657581396d667fa5" (type string) at path "_id" for model "User"	GET	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:32:15	1617015e-13c1-4a84-a678-bc8a1b432178	Error: Wrong User Id	GET	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:38:02	3a747740-2848-434d-bd41-8e513a2f55f4	Error: Wrong User Id	GET	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:38:28	8dd9a959-9308-445d-ab18-e3499278badd	Error: Wrong User Id	DELETE	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:39:43	37d65526-4d55-495f-ba17-32f46130a10f	Error: Invalid User Id	DELETE	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:41:08	a858d8a5-2ab5-4164-8192-bfd6b495e2f1	Error: Invalid User Id	DELETE	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:41:18	5026fefb-34f0-410b-8b88-ce3f56d9715f	Error: Wrong User Id	GET	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:43:16	950f410a-c1b5-4069-bbae-9e5be9622a27	Error: Wrong User Id	GET	/api/user/63cd73d657581396d667fa5	undefined
+22-01-2023	23:56:28	8158b1fa-27d0-4b7e-845e-cef2c2f660f5	Error: Invalid User Id	PATCH	/api/user/63cd707ca5da3fd626a060c	undefined
+23-01-2023	00:00:05	acbd2a5f-a8fd-432b-b540-62a682cb1281	MongoServerError: E11000 duplicate key error collection: store.users index: mobile_1 dup key: { mobile: "123456789" }	POST	/api/user/register	undefined
+23-01-2023	00:01:44	272a03a7-6f27-4df0-8c45-d920aa1783b6	TypeError: Cannot read properties of null (reading 'mobile')	POST	/api/user/register	undefined
+23-01-2023	00:03:04	d5fb514d-b1ee-4a7c-bf13-ea7d52fef048	MongoServerError: E11000 duplicate key error collection: store.users index: mobile_1 dup key: { mobile: "123456789" }	POST	/api/user/register	undefined
+23-01-2023	00:04:52	4a6feddc-3426-4580-abc1-18862c5b958f	Error: Invalid User Id	PATCH	/api/user/63cd816ace7f49a89ee386e1	undefined
+23-01-2023	00:05:15	f05caae3-eddd-47d9-87ea-67d5605862bd	Error: Invalid User Id	PATCH	/api/user/63cd816ace7f49a89ee386e1	undefined
+23-01-2023	00:07:56	6694cc38-349e-4876-8cee-d7e09b7aa94f	Error: MongoServerError: Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: store.users index: email_1 dup key: { email: "test@test.com" }	PATCH	/api/user/63cd816ace7f49a89ee386e1	undefined
+23-01-2023	00:08:22	19d2e3cf-fcbb-4d3e-b8d8-fb98647c5313	Error: MongoServerError: Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: store.users index: email_1 dup key: { email: "test@test.com" }	PATCH	/api/user/63cd816ace7f49a89ee386e1	undefined
+23-01-2023	00:30:01	2d94867c-d5e2-4f28-ab15-694041a336c3	TypeError: Cannot read properties of undefined (reading 'startsWith')	DELETE	/api/user/63cd816ace7f49a89ee386e1	undefined
+23-01-2023	00:37:21	70e9f1ab-f623-415f-b31d-4d5732118a45	TypeError: Cannot set properties of undefined (setting 'id')	POST	/api/user/login	undefined
+23-01-2023	00:38:05	23a24c90-f2e8-4d61-96e8-0e678245f290	TypeError: Cannot set properties of undefined (setting 'id')	POST	/api/user/login	undefined
+23-01-2023	00:43:36	50e461ee-73e2-464e-a3de-34e6085aa5f9	TypeError: Cannot read properties of undefined (reading 'id')	DELETE	/api/user/63cd816ace7f49a89ee386e1	undefined
+23-01-2023	00:54:26	fa0259af-6aef-4586-b1cb-f75a65a835d9	TypeError: Cannot read properties of undefined (reading 'startsWith')	GET	/api/user	undefined
+23-01-2023	00:55:24	43b38f51-fbc4-4851-a40b-b1bff2fe283d	Error: Unauthorized	GET	/api/user	undefined
+23-01-2023	01:05:51	a3bef8e8-28d5-45c7-9f48-886217ef6371	Error: Unauthorized	GET	/api/user	undefined
+23-01-2023	01:12:08	88f5778b-9cef-4052-b05a-b8d35e8486af	Error: CastError: Cast to ObjectId failed for value "<Buffer 63 cd 70 7c a5 da 3f d6 26 a0 60 cc>" (type Buffer) at path "_id" for model "User"	PATCH	/api/user	undefined
+23-01-2023	11:25:00	879b8591-b73f-4eb5-9ce6-d7c0c17ae2fc	Error: Unauthorized	POST	/api/user/block/2	undefined
+23-01-2023	11:26:37	137c7306-9bf0-4c60-a004-acf3e11b903a	Error: Unauthorized	GET	/api/user	undefined
+23-01-2023	12:02:07	cfca370c-1a28-464e-adee-f7221b0de3ce	Error: CastError: Cast to ObjectId failed for value "{ userToBlock: '63cd707ca5da3fd626a060cc' }" (type Object) at path "_id" for model "User"	POST	/api/user/block/63cd707ca5da3fd626a060cc	undefined
+23-01-2023	12:13:30	eede4b88-a8a5-4511-b0a8-a81f5b538a52	Error: Unauthorized	PATCH	/api/user/unblock/63cd707ca5da3fd626a060cc	undefined
+23-01-2023	12:14:00	e12ddda8-a63d-47d2-b6a8-6f8adef9e67d	Error: Unauthorized	PATCH	/api/user/unblock/63cd707ca5da3fd626a060cc	undefined
+23-01-2023	12:14:37	c031d3d5-bd4b-436a-a649-22f77379c508	Error: Unauthorized. You are not admin	PATCH	/api/user/unblock/63cd707ca5da3fd626a060cc	undefined
+23-01-2023	12:32:00	c7ea8100-47ef-469b-9ddc-dcef7736b2fd	Error: Unauthorized	GET	/api/user/63cd73d657581396d667fa54	undefined
+23-01-2023	12:32:30	2f352950-f80a-4af1-80e1-89e7b5b761ea	Error: Unauthorized	GET	/api/user/63cd73d657581396d667fa54	undefined
+23-01-2023	12:33:59	02ea1eb7-5a5f-4bd4-bce1-46dbc89a236f	ReferenceError: res is not defined	GET	/api/user/63cd707ca5da3fd626a060c	undefined
+23-01-2023	12:34:48	02a765f3-7995-4282-b820-2ca1acb2fd8b	Error: Invalid user ID	GET	/api/user/63cd707ca5da3fd626a060c	undefined
