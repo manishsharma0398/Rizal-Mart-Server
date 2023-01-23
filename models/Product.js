@@ -14,11 +14,11 @@ var productSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    // seller: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: true,
-    //   ref: "User",
-    // },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      // required: true,
+      ref: "User",
+    },
     description: {
       type: String,
       required: true,

@@ -9,3 +9,7 @@ module.exports.isValidMongoId = (id) => {
 module.exports.isValidProductId = (id) => {
   if (!checkValidMongoId(id)) throw new Error("Invalid Product ID");
 };
+
+module.exports.isValidId = (id) => {
+  if (!checkValidMongoId(id)) throw new Error("Invalid ID");
+};

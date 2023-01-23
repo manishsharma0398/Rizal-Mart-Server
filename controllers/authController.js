@@ -8,7 +8,6 @@ const { generateToken } = require("../config/jwtToken");
 const { COOKIE_NAME, PWD_LOG_FILE } = require("../utils/variables");
 const { generateRefreshToken } = require("../config/refreshToken");
 const { isValidMongoId } = require("../utils/validMongoId");
-const { default: slugify } = require("slugify");
 const { isEmailValid } = require("../utils/emailValidator");
 const { sendEmail } = require("./emailController");
 

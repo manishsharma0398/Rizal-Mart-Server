@@ -10,6 +10,7 @@ const { errorHandler } = require("./middlewares/errorHandler");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 
 require("dotenv").config();
 connectToDB();
@@ -28,6 +29,7 @@ app.use(morgan("dev"));
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/product", productRoutes);
+app.use("/api/category", categoryRoutes);
 
 app.use(errorHandler);
 
