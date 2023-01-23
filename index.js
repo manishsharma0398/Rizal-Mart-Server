@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const { connectToDB } = require("./config/dbConnect");
 const { errorHandler } = require("./middlewares/errorHandler");
 
+const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 require("dotenv").config();
@@ -22,6 +23,7 @@ app.use(cors());
 
 // routes
 app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use(errorHandler);
 

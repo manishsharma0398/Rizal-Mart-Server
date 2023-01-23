@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const {
   register,
-  login,
   getAllUsers,
   getUser,
   deleteUser,
@@ -13,7 +12,6 @@ const {
 const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
 
 router.post("/register", register);
-router.post("/login", login);
 router.get("/:userId", verifyToken, getUser);
 router.delete("/:userId", verifyToken, deleteUser);
 router.patch("/", verifyToken, updateUser);

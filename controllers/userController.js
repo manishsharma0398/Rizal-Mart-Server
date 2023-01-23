@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 
 const User = require("../models/User");
-const { generateToken } = require("../config/jwtToken");
 const { logEvents } = require("../middlewares/logger");
 const { isValidMongoId } = require("../utils/validMongoId");
 
@@ -37,32 +35,6 @@ module.exports.register = asyncHandler(async (req, res) => {
   await User.create(userdata);
 
   return res.status(201).json({ message: "User created" });
-});
-
-module.exports.login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password)
-    return res.status(400).json({ message: "All fields required" });
-
-  const user = await User.findOne({ email }).exec();
-
-  if (!user) return res.status(400).json({ message: "Email not registered" });
-
-  // check password
-  if (!(await user.didPasswordMatch(password)))
-    return res.status(400).json({ message: "Error credentials" });
-
-  if (user.blocked) return res.status(400).json({ message: "You are blocked" });
-
-  return res.status(200).json({
-    _id: user?._id,
-    firstname: user?.firstname,
-    lastname: user?.lastname,
-    email: user?.email,
-    mobile: user?.mobile,
-    token: generateToken(user._id),
-  });
 });
 
 // Route only accessible to admin
