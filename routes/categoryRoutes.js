@@ -11,8 +11,8 @@ const {
 
 router.post("/", createCategory);
 router.get("/", getAllCategories);
-router.get("/:categoryId", getACategory);
-router.delete("/:categoryId", deleteCategory);
-router.patch("/:categoryId", updateCategory);
+router.get("/:wishlistId", getACategory);
+router.delete("/:wishlistId", deleteCategory);
+router.patch("/:wishlistId", updateCategory);
 
 module.exports = router;

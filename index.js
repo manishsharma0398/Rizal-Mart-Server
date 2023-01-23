@@ -11,6 +11,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const wishlistRoutes = require("./routes/wishlistRoutes");
 
 require("dotenv").config();
 connectToDB();
@@ -30,6 +31,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 
 app.use(errorHandler);
 

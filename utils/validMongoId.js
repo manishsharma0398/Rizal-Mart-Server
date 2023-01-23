@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const checkValidMongoId = (id) => mongoose.Types.ObjectId.isValid(id);
+module.exports.checkValidMongoId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 module.exports.isValidMongoId = (id) => {
   if (!checkValidMongoId(id)) throw new Error("Invalid user ID");

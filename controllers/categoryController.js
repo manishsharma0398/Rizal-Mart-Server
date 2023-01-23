@@ -1,9 +1,7 @@
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
 
 const Category = require("../models/Category");
-const { logEvents } = require("../middlewares/logger");
-const { isValidId } = require("../utils/validMongoId");
-const { default: mongoose } = require("mongoose");
 
 module.exports.createCategory = asyncHandler(async (req, res) => {
   const category = req.body?.category;
