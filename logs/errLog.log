@@ -36,3 +36,9 @@
 23-01-2023	12:34:48	02a765f3-7995-4282-b820-2ca1acb2fd8b	Error: Invalid user ID	GET	/api/user/63cd707ca5da3fd626a060c	undefined
 23-01-2023	15:29:40	eff1f862-edec-47d2-b378-d637b7040ce7	Error: Unauthorized. You are not admin	GET	/api/user	undefined
 23-01-2023	15:42:01	37a886f3-2ab7-4e5b-b98a-7337b8c65d08	Error: Invalid Product ID	DELETE	/api/product/63ce58b04187f0e31fed06d	undefined
+23-01-2023	18:15:38	1f96278e-cf32-42c4-aaa8-995170152ce0	Error: Invalid user ID	PATCH	/api/auth/password	undefined
+23-01-2023	18:16:50	1f741f25-a784-4f0f-a9aa-8d71c2102e6f	Error: Unauthorized	PATCH	/api/auth/password	undefined
+23-01-2023	18:18:57	addfb76c-ff41-4359-9785-562777c1ad23	Error: Something Went Wrong Please try gain later	PATCH	/api/auth/password	undefined
+23-01-2023	19:34:36	f8058464-c178-44e1-b9e6-885f5d6b2eef	ObjectParameterError: Parameter "filter" to findOne() must be an object, got ggggg@a.co	POST	/api/auth/password/forgot	undefined
+23-01-2023	19:48:36	a5f57864-638d-4777-83f7-fa1197dc5595	ValidationError: User validation failed: passwordResetTokenExpires: Cast to date failed for value "1004690109740400000" (type number) at path "passwordResetTokenExpires"	POST	/api/auth/password/forgot	undefined
+23-01-2023	19:51:38	c8500f25-3325-4848-896d-9384a4235b1a	ReferenceError: nodemailer is not defined	POST	/api/auth/password/forgot	undefined

@@ -14,7 +14,7 @@ const productRoutes = require("./routes/productRoutes");
 require("dotenv").config();
 connectToDB();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 const app = express();
 
 // middlewares
