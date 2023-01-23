@@ -11,8 +11,8 @@ const {
 
 router.post("/", createCategory);
 router.get("/", getAllCategories);
-router.get("/:feedbackId", getACategory);
-router.delete("/:feedbackId", deleteCategory);
-router.patch("/:feedbackId", updateCategory);
+router.get("couponId", getACategory);
+router.delete("couponId", deleteCategory);
+router.patch("couponId", updateCategory);
 
 module.exports = router;

@@ -14,7 +14,7 @@ module.exports.createFeedback = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "All fields required" });
 
   // check if product exist in wishlist for that user
-  const feedbackExist = await WishList.findOne({
+  const feedbackExist = await Feedback.findOne({
     product: productId,
     user: userId,
   }).exec();

@@ -10,9 +10,9 @@ const {
 } = require("../controllers/feedbackController");
 
 router.post("/", createFeedback);
-router.delete("/:feedbackId", deleteFeedback);
-router.get("/:feedbackId", getFeedback);
+router.delete("couponId", deleteFeedback);
+router.get("couponId", getFeedback);
 router.get("/:productId", getAllFedback);
-router.put("/:feedbackId", updateFeedback);
+router.put("couponId", updateFeedback);
 
 module.exports = router;
