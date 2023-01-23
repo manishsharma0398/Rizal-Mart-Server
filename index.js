@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
@@ -8,6 +9,7 @@ const { errorHandler } = require("./middlewares/errorHandler");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 require("dotenv").config();
 connectToDB();
@@ -20,10 +22,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
+app.use(morgan("dev"));
 
 // routes
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/product", productRoutes);
 
 app.use(errorHandler);
 
@@ -38,4 +42,8 @@ mongoose.connection.on("error", (err) => {
     `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
     "mongoErrLog.log"
   );
+});
+
+mongoose.connection.on("disconnected", () => {
+  logEvents(`Disconnected From mongo`, "mongoErrLog.log");
 });

@@ -34,3 +34,5 @@
 23-01-2023	12:32:30	2f352950-f80a-4af1-80e1-89e7b5b761ea	Error: Unauthorized	GET	/api/user/63cd73d657581396d667fa54	undefined
 23-01-2023	12:33:59	02ea1eb7-5a5f-4bd4-bce1-46dbc89a236f	ReferenceError: res is not defined	GET	/api/user/63cd707ca5da3fd626a060c	undefined
 23-01-2023	12:34:48	02a765f3-7995-4282-b820-2ca1acb2fd8b	Error: Invalid user ID	GET	/api/user/63cd707ca5da3fd626a060c	undefined
+23-01-2023	15:29:40	eff1f862-edec-47d2-b378-d637b7040ce7	Error: Unauthorized. You are not admin	GET	/api/user	undefined
+23-01-2023	15:42:01	37a886f3-2ab7-4e5b-b98a-7337b8c65d08	Error: Invalid Product ID	DELETE	/api/product/63ce58b04187f0e31fed06d	undefined
