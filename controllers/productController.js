@@ -1,8 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
+const fs = require("fs");
 
 const Product = require("../models/Product");
 const { isValidProductId } = require("../utils/validMongoId");
+const { cloudinaryUploadImg } = require("../config/cloudinary");
 
 module.exports.addProduct = asyncHandler(async (req, res) => {
   const newProduct = req.body;
@@ -72,4 +74,36 @@ module.exports.getAllProducts = asyncHandler(async (req, res) => {
   // const products = await Product.find(req);
 
   return res.json(queryObj);
+});
+
+module.exports.uploadProductImage = asyncHandler(async (req, res) => {
+  const productId = req.params.productId;
+  isValidProductId(productId);
+
+  const urls = [];
+  const files = req.files;
+
+  for (const file of files) {
+    const originalImage = file.path;
+    const compressedImage = file.path.replace(
+      "\\public\\images",
+      "\\public\\images\\products"
+    );
+    const newPath = await cloudinaryUploadImg(compressedImage, "images");
+    urls.push(newPath);
+    fs.unlinkSync(originalImage);
+    fs.unlinkSync(compressedImage);
+  }
+
+  try {
+    const product = await Product.findByIdAndUpdate(
+      productId,
+      { images: urls.map((file) => file) },
+      { new: true }
+    ).exec();
+
+    res.json(product);
+  } catch (error) {
+    throw new Error(error);
+  }
 });

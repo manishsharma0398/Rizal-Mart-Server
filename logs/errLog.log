@@ -42,3 +42,13 @@
 23-01-2023	19:34:36	f8058464-c178-44e1-b9e6-885f5d6b2eef	ObjectParameterError: Parameter "filter" to findOne() must be an object, got ggggg@a.co	POST	/api/auth/password/forgot	undefined
 23-01-2023	19:48:36	a5f57864-638d-4777-83f7-fa1197dc5595	ValidationError: User validation failed: passwordResetTokenExpires: Cast to date failed for value "1004690109740400000" (type number) at path "passwordResetTokenExpires"	POST	/api/auth/password/forgot	undefined
 23-01-2023	19:51:38	c8500f25-3325-4848-896d-9384a4235b1a	ReferenceError: nodemailer is not defined	POST	/api/auth/password/forgot	undefined
+24-01-2023	12:35:28	1ed6745a-5f70-4b3c-84ff-1933cf609af3	ReferenceError: checkValidMongoId is not defined	GET	/api/product/63ce59584187f0e31fed06d7	undefined
+24-01-2023	12:35:50	80904bab-56e9-4464-bae6-69af12ab9cfc	ReferenceError: checkValidMongoId is not defined	GET	/api/product/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	12:38:49	b9b41505-a3c4-41b6-8af1-501b261e527f	Error: ENOENT: no such file or directory, open 'E:\projects\ecommerce\public\images\images-1674544129128-1.573053007215126e+23.jpeg'	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	13:13:57	58399364-5e73-4a7f-9cca-7af53e2f4449	ReferenceError: err is not defined	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	13:14:38	17c7515a-e6c8-4b51-8290-21f3d3947a49	Error: Must supply api_key	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	13:16:57	c1f760da-6ade-46a9-a40e-fa3061a46168	Error: Must supply api_key	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	13:18:46	f5573d59-3bfc-4ab3-91b2-c14e1082ef91	Error: Must supply api_key	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	13:20:45	eb01e571-7a5d-4ef6-ba9a-a857c1a63d06	Error: Must supply api_key	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	13:21:15	1503f020-dcd2-464b-bb24-d9ed562087e1	Error: Must supply api_key	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	13:23:13	e9234716-4ff9-4d11-8aa7-9b2b86830d56	Error: ReferenceError: data is not defined	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
