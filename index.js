@@ -14,6 +14,8 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 const couponRoutes = require("./routes/couponRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 require("dotenv").config();
 connectToDB();
@@ -36,6 +38,8 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/coupon", couponRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/order", orderRoutes);
 
 app.use(errorHandler);
 

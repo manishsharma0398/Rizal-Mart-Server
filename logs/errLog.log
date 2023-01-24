@@ -52,3 +52,37 @@
 24-01-2023	13:20:45	eb01e571-7a5d-4ef6-ba9a-a857c1a63d06	Error: Must supply api_key	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
 24-01-2023	13:21:15	1503f020-dcd2-464b-bb24-d9ed562087e1	Error: Must supply api_key	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
 24-01-2023	13:23:13	e9234716-4ff9-4d11-8aa7-9b2b86830d56	Error: ReferenceError: data is not defined	PUT	/api/product/upload/63ce61848e95ec1c17675fc1	undefined
+24-01-2023	17:05:45	a67ff47e-169d-4be8-abd7-587d1611db9d	ReferenceError: products is not defined	POST	/api/cart	undefined
+24-01-2023	17:06:43	1fd3c0f2-8479-4704-8484-bacd1601ff99	TypeError: products.reduce is not a function	POST	/api/cart	undefined
+24-01-2023	17:08:36	28a816a2-31e7-4b71-8e99-a3f84e41b4d3	ValidationError: Cart validation failed: products: Cast to embedded failed for value "63ce61848e95ec1c17675fc1" (type string) at path "products" because of "ObjectParameterError", total: Cast to Number failed for value "NaN" (type number) at path "total"	POST	/api/cart	undefined
+24-01-2023	17:31:41	6aef72ca-8c77-4eb5-af56-7541ec219fe5	TypeError: cartExist.find is not a function	POST	/api/cart	undefined
+24-01-2023	18:41:02	0f6004a4-8a3a-4deb-8602-fcdaec4b7fb0	TypeError: newProduct.reduce is not a function	POST	/api/cart	undefined
+24-01-2023	19:19:52	c6b460bb-e48e-4ff5-8873-3f0b8e45571e	Error: Invalid Product ID	POST	/api/cart/63cfd91770b6ee1ab61efdf6	undefined
+24-01-2023	19:20:27	91d230ae-7d31-4178-a8b5-4c25010e0ff4	Error: Invalid Product ID	POST	/api/cart/63cfd91770b6ee1ab61efdf6	undefined
+24-01-2023	19:21:00	6667d046-5690-4510-a34d-ab87469be22f	Error: Invalid Product ID	POST	/api/cart/63cfd91770b6ee1ab61efdf6	undefined
+24-01-2023	19:39:29	1c1c0b5b-b7e7-4b8e-9952-2252c60816d9	Error: Unauthorized	POST	/api/coupon	undefined
+24-01-2023	19:39:40	be1cb5f7-49cc-424c-9238-e4cd15e22dfd	ValidationError: Coupon validation failed: expiry: Cast to date failed for value "28/01/2022" (type string) at path "expiry"	POST	/api/coupon	undefined
+24-01-2023	19:40:14	3ef2c008-6fa2-4801-bbe1-50ea1055a3a8	ValidationError: Coupon validation failed: expiry: Cast to date failed for value "28-01-2022" (type string) at path "expiry"	POST	/api/coupon	undefined
+24-01-2023	19:43:08	7c360ac9-1cf6-4a21-8bcb-9bcd91079252	SyntaxError: Unexpected token / in JSON at position 7	PUT	/api/coupon/63cfe70aa1a9ea4806a47dcf	undefined
+24-01-2023	20:10:59	80e9c5ab-93e7-43b8-9f19-3618c0d163af	Error: Invalid Coupon	POST	/api/coupon/apply	undefined
+24-01-2023	20:11:20	50f8f046-9adc-4b0e-89e7-d45ac3fc4e36	Error: Invalid Coupon	POST	/api/coupon/apply	undefined
+24-01-2023	20:39:50	27d4a46a-036c-4fb1-afe2-fa0acfa81509	TypeError: Cannot read properties of null (reading 'products')	POST	/api/coupon/apply	undefined
+24-01-2023	20:40:21	c61491c3-364c-4ed7-a533-548284ed7cba	TypeError: Cannot read properties of null (reading 'products')	POST	/api/coupon/apply	undefined
+24-01-2023	20:42:06	2f96dd13-c8fa-47bb-a4f5-2283c184f7aa	TypeError: Cannot read properties of null (reading 'hasOwnProperty')	POST	/api/coupon/apply	undefined
+24-01-2023	20:43:35	5843d599-ae5e-4926-b9ab-0a0602491f4b	TypeError: Cannot read properties of null (reading 'products')	POST	/api/coupon/apply	undefined
+24-01-2023	20:44:01	59379abf-5af2-4645-bb9c-290c5e357fa0	TypeError: Cannot read properties of null (reading 'products')	POST	/api/coupon/apply	undefined
+24-01-2023	20:49:47	d7fee552-897a-461c-8807-10bd9ac1798a	Error: Unauthorized	POST	/api/cart/63cfd91770b6ee1ab61efdf6	undefined
+24-01-2023	23:06:54	e3a545c2-fae6-4ab1-9642-329c74d94dc5	Error: Unauthorized	GET	/api/cart	undefined
+24-01-2023	23:07:02	61162382-8f03-4db0-8a2f-7c889c38afce	StrictPopulateError: Cannot populate path `coupon` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart	undefined
+24-01-2023	23:08:12	1e95f644-7cf6-415b-9d44-6262ef27f74e	StrictPopulateError: Cannot populate path `coupon` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart	undefined
+24-01-2023	23:09:26	59c296e4-c299-42ab-9ccd-3700994b67fd	StrictPopulateError: Cannot populate path `coupon` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart	undefined
+24-01-2023	23:09:45	a7bc4fac-b5f6-4b88-83b2-97dfd6ee49d7	StrictPopulateError: Cannot populate path `coupon` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart	undefined
+24-01-2023	23:11:05	9d034003-572c-4426-91b9-e79add588fd5	StrictPopulateError: Cannot populate path `coupon` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart	undefined
+24-01-2023	23:11:29	cd5635f5-8098-4a4d-8210-ab1e5db73018	StrictPopulateError: Cannot populate path `coupon` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart/	undefined
+24-01-2023	23:13:42	c92cdb13-dc5a-4c66-9df3-2ec8344201f1	StrictPopulateError: Cannot populate path `Coupon` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart/	undefined
+24-01-2023	23:17:32	a94a1751-12fc-48b6-9904-443a98017afb	MissingSchemaError: Schema hasn't been registered for model "-_id".
+Use mongoose.model(name, schema)	GET	/api/cart/	undefined
+24-01-2023	23:19:28	de92cac4-714c-4bb7-8647-aad8c5058970	MissingSchemaError: Schema hasn't been registered for model "expiry".
+Use mongoose.model(name, schema)	GET	/api/cart/	undefined
+24-01-2023	23:35:15	34db8d24-c82d-4d5b-a455-67f344b5ae8f	StrictPopulateError: Cannot populate path `product` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart/	undefined
+24-01-2023	23:35:28	bb738c17-0159-444b-b1eb-df3e4424cb37	StrictPopulateError: Cannot populate path `products/product` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart/	undefined

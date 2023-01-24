@@ -2,7 +2,8 @@ const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 
 const Coupon = require("../models/Coupon");
-const { checkValidMongoId } = require("../utils/validMongoId");
+const Cart = require("../models/Cart");
+const { checkValidMongoId, isValidCoupon } = require("../utils/validMongoId");
 
 module.exports.createCoupon = asyncHandler(async (req, res) => {
   const name = req.body?.name;
@@ -55,8 +56,8 @@ module.exports.updateCoupon = asyncHandler(async (req, res) => {
   const expiry = req.body?.expiry;
   const discount = req.body?.discount;
 
-  if (!name || !expiry || !discount)
-    return res.status(400).json({ message: "All fields required" });
+  // if (!name || !expiry || !discount)
+  //   return res.status(400).json({ message: "All fields required" });
 
   if (!checkValidMongoId(couponId))
     return res.status(400).json({ message: "Not valid id" });
@@ -67,11 +68,15 @@ module.exports.updateCoupon = asyncHandler(async (req, res) => {
   if (couponExist)
     return res.status(400).json({ message: "Coupon already exis" });
 
-  const updatedCoupon = await Coupon.findByIdAndUpdate(couponId, {
-    name,
-    expiry,
-    discount,
-  }).exec();
+  const updatedCoupon = await Coupon.findByIdAndUpdate(
+    couponId,
+    {
+      name,
+      expiry,
+      discount,
+    },
+    { new: true }
+  ).exec();
 
   if (!updatedCoupon) throw new Error(err);
 
@@ -91,4 +96,26 @@ module.exports.deleteCoupon = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "Error Coupon Id" });
 
   return res.status(200).json({ message: "deleted" });
+});
+
+module.exports.applyCoupon = asyncHandler(async (req, res) => {
+  const coupon = req.body.coupon;
+
+  const couponExist = await Coupon.findOne({ name: coupon }).exec();
+
+  if (!couponExist)
+    return res.status(400).json({ message: "Coupon does not exist" });
+
+  if (Date.now() > new Date(couponExist.expiry))
+    return res.status(400).json({ message: "Coupon expired" });
+
+  const cart = await Cart.findOne({ user: req.userId }).exec();
+
+  if (!cart) return res.json({ message: "No cart" });
+
+  if (!cart.products.length) return res.json({ message: "No Item to apply" });
+
+  cart.couponApplied = couponExist._id;
+  await cart.save();
+  return res.json(cart);
 });
