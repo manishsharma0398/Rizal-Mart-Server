@@ -1,7 +1,6 @@
-const mongoose = require("mongoose"); // Erase if already required
+const mongoose = require("mongoose");
 
-// Declare the Schema of the Mongo model
-var categorySchema = new mongoose.Schema(
+const categorySchema = new mongoose.Schema(
   {
     category: {
       type: String,
@@ -13,5 +12,4 @@ var categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-//Export the model
 module.exports = mongoose.model("Category", categorySchema);

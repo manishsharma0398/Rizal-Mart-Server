@@ -9,12 +9,21 @@ cloudinary.config({
 });
 
 // Upload
-module.exports.cloudinaryUploadImg = async (fileToUpload) => {
-  try {
-    const res = await cloudinary.uploader.upload(fileToUpload);
-    // console.log(res);
-    return res.secure_url;
-  } catch (error) {
-    throw new Error(error);
-  }
+module.exports.cloudinaryUploadImg = async (fileToUploads, folder) => {
+  const response = await cloudinary.uploader.upload(fileToUploads, { folder });
+  return {
+    url: response.secure_url,
+    asset_id: response.asset_id,
+    public_id: response.public_id,
+  };
+};
+
+// Delete
+module.exports.cloudinaryDeleteImg = async (fileToDelete) => {
+  const response = await cloudinary.uploader.destroy(fileToDelete);
+  return {
+    url: response.secure_url,
+    asset_id: response.asset_id,
+    public_id: response.public_id,
+  };
 };

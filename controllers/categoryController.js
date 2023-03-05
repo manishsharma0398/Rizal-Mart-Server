@@ -26,21 +26,28 @@ module.exports.getAllCategories = asyncHandler(async (req, res) => {
 });
 
 module.exports.updateCategory = asyncHandler(async (req, res) => {
+  const categoryId = req?.params?.categoryId;
   const category = req.body?.category;
+
   if (!category) return res.status(400).json({ message: "Field required" });
 
   // check for duplicate
   const categoryExist = await Category.findOne({ category }).exec();
 
-  if (categoryExist)
+  if (categoryExist && categoryExist?._id.toString() !== categoryId)
     return res.status(400).json({ message: "Category already exist" });
 
-  categoryExist.category = category;
-  await categoryExist.save();
+  const updatedCategory = await Category.findByIdAndUpdate(
+    categoryId,
+    {
+      category,
+    },
+    { new: true }
+  ).exec();
 
-  return res
-    .status(200)
-    .json({ id: categoryExist._id, category: categoryExist.category });
+  if (!updatedCategory) throw new Error(err);
+
+  return res.status(200).json(updatedCategory);
 });
 
 module.exports.deleteCategory = asyncHandler(async (req, res) => {
@@ -52,7 +59,10 @@ module.exports.deleteCategory = asyncHandler(async (req, res) => {
 
   if (!response) return res.status(404).json({ message: "No category Found" });
 
-  return res.json({ message: `Category ${response.category} deleted` });
+  return res.json({
+    message: `Category ${response.category} deleted`,
+    id: response._id,
+  });
 });
 
 module.exports.getACategory = asyncHandler(async (req, res) => {

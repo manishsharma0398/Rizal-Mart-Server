@@ -14,9 +14,9 @@ const { verifyToken } = require("../middlewares/authMiddleware");
 
 router.post("/", verifyToken, createCoupon);
 router.delete("/:couponId", verifyToken, deleteCoupon);
-router.get("/all", verifyToken, getAllCoupons);
+router.get("/all", getAllCoupons);
 router.get("/", verifyToken, getCouponsBySeller);
-router.get("/:couponId", verifyToken, getCoupon);
+router.get("/:couponId", getCoupon);
 router.put("/:couponId", verifyToken, updateCoupon);
 router.post("/apply", verifyToken, applyCoupon);
 

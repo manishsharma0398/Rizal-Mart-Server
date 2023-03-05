@@ -41,12 +41,15 @@ module.exports.login = asyncHandler(async (req, res) => {
   });
 
   return res.status(200).json({
-    _id: user?._id,
-    firstname: user?.firstname,
-    lastname: user?.lastname,
-    email: user?.email,
-    mobile: user?.mobile,
-    token: generateToken(user._id),
+    user: {
+      _id: updatedUser?._id,
+      firstname: updatedUser?.firstname,
+      lastname: updatedUser?.lastname,
+      role: updatedUser?.role,
+      email: updatedUser?.email,
+      mobile: updatedUser?.mobile,
+    },
+    token: generateToken(updatedUser._id),
   });
 });
 
@@ -88,8 +91,8 @@ module.exports.handleRefreshToken = asyncHandler(async (req, res) => {
 
 module.exports.logout = asyncHandler(async (req, res) => {
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(204); //No content
-  const refreshToken = cookies.jwt;
+  if (!cookies[COOKIE_NAME]) return res.sendStatus(204); //No content
+  const refreshToken = cookies[COOKIE_NAME];
   try {
     await User.findOneAndUpdate(
       refreshToken,

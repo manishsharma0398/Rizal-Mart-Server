@@ -7,25 +7,23 @@ const {
   updateProduct,
   deleteProduct,
   getAllProducts,
-  uploadProductImage,
 } = require("../controllers/productController");
-const {
-  uploadPhoto,
-  productImageResize,
-} = require("../middlewares/uploadImages");
-const { verifyToken } = require("../middlewares/authMiddleware");
 
-router.post("/", verifyToken, addProduct);
-router.get("/", getAllProducts);
-router.put(
-  "/upload/:productId",
+const { uploadPhoto } = require("../middlewares/uploadImages");
+
+const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
+
+router.post(
+  "/",
   verifyToken,
+  isAdmin,
   uploadPhoto.array("images", 10),
-  productImageResize,
-  uploadProductImage
+  addProduct
 );
+router.get("/", getAllProducts);
+
 router.get("/:productId", getProduct);
-router.delete("/:productId", deleteProduct);
-router.patch("/:productId", updateProduct);
+router.delete("/:productId", verifyToken, isAdmin, deleteProduct);
+router.patch("/:productId", verifyToken, isAdmin, updateProduct);
 
 module.exports = router;

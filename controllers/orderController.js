@@ -28,18 +28,18 @@ module.exports.createNewOrder = asyncHandler(async (req, res) => {
 });
 
 module.exports.deleteOrder = asyncHandler(async (req, res) => {
-  const wishlistId = req.body?.wishlistId;
+  const orderId = req.body?.orderId;
 
-  if (!checkValidMongoId(wishlistId))
+  if (!checkValidMongoId(orderId))
     return res.status(400).json({ message: "Not valid id" });
 
   // check if product exist in wishlist for that user
-  const deleteWishList = await WishList.findByIdAndDelete(wishlistId).exec();
+  const isOrderDeleted = await Order.findByIdAndDelete(orderId).exec();
 
-  if (!deleteWishList)
-    return res.status(404).json({ message: "Error WishList Id" });
+  if (!isOrderDeleted)
+    return res.status(404).json({ message: "Error Order Id" });
 
-  return res.status(200).json({ message: "deleted" });
+  return res.status(204).json();
 });
 
 module.exports.updateOrder = asyncHandler(async (req, res) => {
@@ -62,13 +62,9 @@ module.exports.getOrder = asyncHandler(async (req, res) => {
 });
 
 module.exports.getAllOrders = asyncHandler(async (req, res) => {
-  const wishlistId = req.params?.wishlistId;
-  if (!mongoose.Types.ObjectId.isValid(wishlistId))
-    return res.status(400).json({ message: "Invalid ID" });
+  const response = await Order.find({}).exec();
 
-  const response = await WishList.findById(wishlistId).exec();
+  if (!response) res.statusCode = 404;
 
-  if (!response) return res.status(404).json({ message: "No category Found" });
-
-  return res.json(response);
+  return res.json({ data: response });
 });

@@ -9,10 +9,12 @@ const {
   updateOrder,
 } = require("../controllers/orderController");
 
-router.post("/", createNewOrder);
-router.delete("/:cartId", deleteOrder);
+const { verifyToken } = require("../middlewares/authMiddleware");
+
+router.post("/", verifyToken, createNewOrder);
+router.delete("/:orderId", verifyToken, deleteOrder);
 router.get("/", getAllOrders);
-router.get("/:cartId", getOrder);
-router.put("/:cartId", updateOrder);
+router.get("/:orderId", getOrder);
+router.put("/:orderId", updateOrder);
 
 module.exports = router;

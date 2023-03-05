@@ -1,26 +1,56 @@
 const asyncHandler = require("express-async-handler");
-const slugify = require("slugify");
-const fs = require("fs");
 
 const Product = require("../models/Product");
+const Category = require("../models/Category");
+
 const { isValidProductId } = require("../utils/validMongoId");
-const { cloudinaryUploadImg } = require("../config/cloudinary");
+const { uploadImages, compressImage } = require("../middlewares/uploadImages");
+const {
+  cloudinaryDeleteImg,
+  cloudinaryUploadImg,
+} = require("../config/cloudinary");
+const { default: mongoose } = require("mongoose");
 
 module.exports.addProduct = asyncHandler(async (req, res) => {
-  const newProduct = req.body;
+  const files = req?.files;
+  const productData = req?.body;
 
-  if (req.body.title) req.body.slug = slugify(req.body.title);
+  const images = [];
 
-  const productCreated = await Product.create(newProduct);
+  for (const file of files) {
+    const originalImage = file?.path;
+    const compressedImage = await compressImage(originalImage);
 
-  return res.status(201).json(productCreated);
+    const newPath = await cloudinaryUploadImg(compressedImage, "rizal-mart");
+
+    images.push(newPath);
+
+    fs.closeSync(fs.openSync(originalImage, "r"));
+    fs.closeSync(fs.openSync(compressedImage, "r"));
+
+    fs.unlinkSync(originalImage);
+    fs.unlinkSync(compressedImage);
+  }
+
+  // const uploadedImagesUrl = await uploadImages(req?.files);
+  // const newProduct = req.body;
+  // console.log(uploadedImagesUrl);
+
+  const newProduct = await Product.create({
+    ...productData,
+    seller: req.userId,
+    images: uploadedImagesUrl,
+  });
+
+  // return res.status(201).json("productCreated");
+  return res.status(201).json(newProduct);
 });
 
 module.exports.getProduct = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
   isValidProductId(productId);
 
-  const product = await Product.findById(productId).exec();
+  const product = await Product.findById(productId).populate("category").exec();
   if (!product) {
     res.statusCode = 404;
     return res.json({ message: "Product not found" });
@@ -52,58 +82,64 @@ module.exports.deleteProduct = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
   isValidProductId(productId);
 
-  try {
-    const product = await Product.findByIdAndDelete(productId).exec();
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    return res.json({ message: "Product Deleted" });
-  } catch (error) {
-    res.statusCode = 400;
-    return res.json({
+  const product = await Product.findById(productId).exec();
+  if (!product) return res.status(404).json({ message: "Product not found" });
+
+  for (let i = 0; i < product?.images.length; i++) {
+    const image = product?.images[i];
+    console.log(image);
+    await cloudinaryDeleteImg(image?.public_id);
+  }
+
+  const deleteProduct = await Product.deleteOne({ _id: productId });
+
+  if (!deleteProduct)
+    return res.status(400).json({
       message: "Cannot delete product please try again later",
     });
-  }
+
+  return res.json({ message: "Product Deleted", id: product._id });
 });
 
 module.exports.getAllProducts = asyncHandler(async (req, res) => {
-  // ! sorting, filtering, searching look before 3:37
+  const page = parseInt(req.query.page) - 1 || 0;
+  const limit = parseInt(req.query.limit) || 20;
+  const search = req.query.search || "";
+  let sort = req.query.sort || "title";
+  let sortOrder = req.query.sortOrder || "asc";
+  let categoryToFilter = req.query.categories || "All";
+  const featured = req.query.featured || false;
+  const popular = req.query.popular || false;
 
-  const queryObj = { ...req.query };
+  const categoriesFromDB = await Category.find({}).exec();
 
-  console.log(queryObj);
+  let categoryIds = [];
 
-  // const products = await Product.find(req);
-
-  return res.json(queryObj);
-});
-
-module.exports.uploadProductImage = asyncHandler(async (req, res) => {
-  const productId = req.params.productId;
-  isValidProductId(productId);
-
-  const urls = [];
-  const files = req.files;
-
-  for (const file of files) {
-    const originalImage = file.path;
-    const compressedImage = file.path.replace(
-      "\\public\\images",
-      "\\public\\images\\products"
+  if (categoryToFilter === "All") {
+    categoryIds = categoriesFromDB.map((cat) => cat._id);
+  } else {
+    const categories = categoryToFilter.split(",");
+    categoryIds = categories.filter((cat) =>
+      mongoose.Types.ObjectId.isValid(cat)
     );
-    const newPath = await cloudinaryUploadImg(compressedImage, "images");
-    urls.push(newPath);
-    fs.unlinkSync(originalImage);
-    fs.unlinkSync(compressedImage);
   }
 
-  try {
-    const product = await Product.findByIdAndUpdate(
-      productId,
-      { images: urls.map((file) => file) },
-      { new: true }
-    ).exec();
+  const query = {
+    title: { $regex: search, $options: "i" },
+    category: { $in: categoryIds },
+  };
 
-    res.json(product);
-  } catch (error) {
-    throw new Error(error);
-  }
+  if (featured) query.featured = true;
+  if (popular) query.popular = true;
+
+  const allProducts = await Product.find(query)
+    .sort({ [sort]: sortOrder })
+    .skip(page * limit)
+    .limit(limit)
+    .populate("category")
+    // .populate([{ path: "user", select: "name profilePic email" }])
+    // .populate([{ path: "category", select: "category" }])
+    .exec();
+
+  return res.status(200).json(allProducts);
 });

@@ -9,9 +9,10 @@ module.exports.createCoupon = asyncHandler(async (req, res) => {
   const name = req.body?.name;
   const expiry = req.body?.expiry;
   const discount = req.body?.discount;
+  const discountType = req.body?.discountType;
   const user = req?.userId;
 
-  if (!name || !expiry || !discount)
+  if (!name || !expiry || !discount || !discountType)
     return res.status(400).json({ message: "All fields required" });
 
   const couponExist = await Coupon.findOne({
@@ -55,9 +56,7 @@ module.exports.updateCoupon = asyncHandler(async (req, res) => {
   const name = req.body?.name;
   const expiry = req.body?.expiry;
   const discount = req.body?.discount;
-
-  // if (!name || !expiry || !discount)
-  //   return res.status(400).json({ message: "All fields required" });
+  const discountType = req.body?.discountType;
 
   if (!checkValidMongoId(couponId))
     return res.status(400).json({ message: "Not valid id" });
@@ -65,8 +64,8 @@ module.exports.updateCoupon = asyncHandler(async (req, res) => {
   // check for duplicate
   const couponExist = await Coupon.findOne({ name }).exec();
 
-  if (couponExist)
-    return res.status(400).json({ message: "Coupon already exis" });
+  if (couponExist && couponExist._id.toString() !== couponId)
+    return res.status(400).json({ message: "Coupon already exists" });
 
   const updatedCoupon = await Coupon.findByIdAndUpdate(
     couponId,
@@ -74,6 +73,7 @@ module.exports.updateCoupon = asyncHandler(async (req, res) => {
       name,
       expiry,
       discount,
+      discountType,
     },
     { new: true }
   ).exec();
@@ -95,7 +95,7 @@ module.exports.deleteCoupon = asyncHandler(async (req, res) => {
   if (!deleteCoupon)
     return res.status(404).json({ message: "Error Coupon Id" });
 
-  return res.status(200).json({ message: "deleted" });
+  return res.status(200).json({ id: deleteCoupon._id });
 });
 
 module.exports.applyCoupon = asyncHandler(async (req, res) => {

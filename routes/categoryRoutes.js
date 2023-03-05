@@ -8,11 +8,12 @@ const {
   updateCategory,
   getACategory,
 } = require("../controllers/categoryController");
+const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
 
-router.post("/", createCategory);
+router.post("/", verifyToken, isAdmin, createCategory);
 router.get("/", getAllCategories);
-router.get("couponId", getACategory);
-router.delete("couponId", deleteCategory);
-router.patch("couponId", updateCategory);
+router.get("/:categoryId", getACategory);
+router.delete("/:categoryId", verifyToken, isAdmin, deleteCategory);
+router.patch("/:categoryId", verifyToken, isAdmin, updateCategory);
 
 module.exports = router;

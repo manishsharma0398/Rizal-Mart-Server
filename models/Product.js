@@ -8,15 +8,9 @@ var productSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-    },
     seller: {
       type: mongoose.Schema.Types.ObjectId,
-      // required: true,
+      required: true,
       ref: "User",
     },
     description: {
@@ -39,19 +33,36 @@ var productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    category: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
+    limit: {
+      type: Number,
+    },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     quantity: {
       type: Number,
-      required: true,
+      // required: true,
+    },
+    fakeQuantity: {
+      type: Number,
+      // required: true,
     },
     images: [
       {
-        type: String,
+        asset_id: { type: String },
+        public_id: { type: String },
+        url: { type: String },
       },
     ],
     color: {
       type: String,
       required: true,
+    },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+    popular: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

@@ -86,3 +86,91 @@ Use mongoose.model(name, schema)	GET	/api/cart/	undefined
 Use mongoose.model(name, schema)	GET	/api/cart/	undefined
 24-01-2023	23:35:15	34db8d24-c82d-4d5b-a455-67f344b5ae8f	StrictPopulateError: Cannot populate path `product` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart/	undefined
 24-01-2023	23:35:28	bb738c17-0159-444b-b1eb-df3e4424cb37	StrictPopulateError: Cannot populate path `products/product` because it is not in your schema. Set the `strictPopulate` option to false to override.	GET	/api/cart/	undefined
+25-01-2023	00:31:42	2e709883-3191-4dcd-9073-22798d431fe2	CastError: Cast to ObjectId failed for value "{ user: '63cd707ca5da3fd626a060cc' }" (type Object) at path "_id" for model "Order"	GET	/api/order/	undefined
+01-02-2023	00:37:28	cadb8fbe-fbfe-4c56-a4c4-216311587031	Error: Unauthorized	GET	/api/coupon/all	http://localhost:5173
+01-02-2023	00:38:03	b1a12581-81f7-4200-bb2a-673e5a9a1e84	Error: Unauthorized	GET	/api/coupon/all	http://localhost:5173
+01-02-2023	13:26:51	92f423b5-dfe5-4177-8e41-4c6fb05d431a	Error: Unauthorized	GET	/api/order	http://localhost:5173
+01-02-2023	13:26:59	93f001bb-0c31-46af-9806-a2482a65ab1c	Error: Unauthorized	GET	/api/order	http://localhost:5173
+01-02-2023	19:42:38	afadafb5-362f-4278-9ad9-8ff9b6a6f005	Error: Unauthorized	POST	/api/images	http://localhost:5173
+01-02-2023	22:42:17	da11b961-1186-4dec-9b4d-da34b3947d26	ValidationError: Product validation failed: quantity: Path `quantity` is required., seller: Path `seller` is required.	POST	/api/product	http://localhost:5173
+24-02-2023	00:52:41	0a54f446-5680-4fa1-9617-4a1076c0cf7b	Error: Invalid Product ID	GET	/api/products/all/?category=	http://localhost:5173
+24-02-2023	00:52:54	2fb2fbba-e592-418a-9dc8-039b19a9346f	Error: Invalid Product ID	GET	/api/products/all/?category=	http://localhost:5173
+24-02-2023	00:56:29	755b57ad-ca32-4b24-9582-8c9aee4e72b1	Error: Invalid Product ID	GET	/api/products/all/?category=beauty,%20toys%20and%20more	http://localhost:5173
+24-02-2023	00:57:02	dfa6bfa8-b209-4a86-b5fb-f1bc4ae27952	Error: CastError: Cast to ObjectId failed for value "beauty, toys and more" (type string) at path "category" for model "Product"	GET	/api/products/?category=beauty,%20toys%20and%20more	http://localhost:5173
+24-02-2023	01:02:41	ffaf6e6f-26e2-4f0c-b9f9-faf4568bdc9c	ReferenceError: category is not defined	GET	/api/products/?category=mobiles	http://localhost:5173
+24-02-2023	01:02:42	6c39b9b3-0993-450d-8aa8-72bff94ee50a	ReferenceError: category is not defined	GET	/api/products/?category=electronics	http://localhost:5173
+24-02-2023	01:02:42	fb39e381-1351-4330-880e-d924018b1fee	ReferenceError: category is not defined	GET	/api/products/?category=fashion	http://localhost:5173
+24-02-2023	01:02:42	49291ce3-ffc7-442e-80a1-f4d38e18c8c7	ReferenceError: category is not defined	GET	/api/products/?category=beauty,%20toys%20and%20more	http://localhost:5173
+24-02-2023	01:02:42	22a9c651-f415-4003-a896-73afdaf9e42f	ReferenceError: category is not defined	GET	/api/products/?category=home	http://localhost:5173
+24-02-2023	01:02:42	e8cc4db6-e6ba-4e55-b668-5d3382acfee8	ReferenceError: category is not defined	GET	/api/products/?category=top%20offers	http://localhost:5173
+24-02-2023	01:02:42	f549e49f-2d33-4cb7-b009-0ea4f4788ae0	ReferenceError: category is not defined	GET	/api/products/?category=appliances	http://localhost:5173
+24-02-2023	01:03:13	13fd972d-f8fd-49ea-9ae1-23549a4e7382	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:10:16	91a30bbb-408e-4786-9dcb-d1952cae4195	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:10:18	22fe4c5d-ed68-4fbb-9c4a-620f27137b2f	CastError: Cast to ObjectId failed for value "mobiles" (type string) at path "category" for model "Product"	GET	/api/products/?category=mobiles	http://localhost:5173
+25-02-2023	15:10:19	0448ec62-b9a8-4132-82fe-6febf3565db2	CastError: Cast to ObjectId failed for value "fashion" (type string) at path "category" for model "Product"	GET	/api/products/?category=fashion	http://localhost:5173
+25-02-2023	15:10:20	70a177fc-34a0-45e8-bd22-938c27b0593e	CastError: Cast to ObjectId failed for value "electronics" (type string) at path "category" for model "Product"	GET	/api/products/?category=electronics	http://localhost:5173
+25-02-2023	15:10:21	5ac0d1fc-8a21-4dc1-ab33-81e9b41790dc	CastError: Cast to ObjectId failed for value "home" (type string) at path "category" for model "Product"	GET	/api/products/?category=home	http://localhost:5173
+25-02-2023	15:10:22	6087cf18-77f9-460a-9a47-9968a9aff2cf	CastError: Cast to ObjectId failed for value "appliances" (type string) at path "category" for model "Product"	GET	/api/products/?category=appliances	http://localhost:5173
+25-02-2023	15:10:24	2eb99b48-de53-4e79-80e3-26670c8ece26	CastError: Cast to ObjectId failed for value "beauty, toys and more" (type string) at path "category" for model "Product"	GET	/api/products/?category=beauty,%20toys%20and%20more	http://localhost:5173
+25-02-2023	15:10:26	67de7e7b-73cb-48aa-aced-1464533f3d3c	CastError: Cast to ObjectId failed for value "top offers" (type string) at path "category" for model "Product"	GET	/api/products/?category=top%20offers	http://localhost:5173
+25-02-2023	15:10:27	030cb98b-2c8e-4744-bde6-fed068749790	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:23:40	3e18dae2-0848-410e-8e1d-9b8c929146cf	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:23:50	81178eaa-787c-4041-a001-231e022ec3e1	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:24:05	0f99eb41-6da2-4a8f-b3a4-a2864520d4be	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:24:10	6024a3df-bbcd-44bb-b662-cfa7a85edf99	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:24:33	ff8cae6d-2329-40cc-ab28-6cb5bc6ceafa	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:25:09	c4406c22-27d3-415c-9e2a-f12be512a6d2	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:26:00	4c89bc47-452f-433c-a7cb-04af37909706	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:31:05	5719ec9e-cb6b-4f92-bdbc-66b6ee206db9	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	15:31:44	210cd11a-70dc-45c1-a893-742b6b9e3f21	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	18:32:14	b406c22d-227d-47db-ba18-879e190ba5b5	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	18:45:49	45e90cfc-7067-4bb5-9f1e-54f5a1e5d63a	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+25-02-2023	18:47:21	ee2123a2-1456-42c1-b105-08e245083e77	CastError: Cast to ObjectId failed for value "grocery" (type string) at path "category" for model "Product"	GET	/api/products/?category=grocery	http://localhost:5173
+01-03-2023	10:20:38	e860a1ca-3111-47fc-a230-4e5f8f266053	Error: Unauthorized	GET	/api/coupon/63fe290c505eb6cc5ef2365d	http://localhost:5173
+01-03-2023	11:19:27	a7cfbf0e-0845-48ed-93a8-72d28e7950db	TypeError: Cannot read properties of null (reading '_id')	PUT	/api/coupon/63fe290c505eb6cc5ef2365d	http://localhost:5173
+01-03-2023	13:49:52	5df4e9da-94b1-4c98-8014-bfb2f2e79686	TypeError: Cannot set properties of null (setting 'category')	PATCH	/api/category/63ceaaf8c9b5df8b1c7ed289	http://localhost:5173
+01-03-2023	14:14:21	f8af9ea5-568a-470e-8bbe-96809fe9f5fa	Error: CastError: Cast to ObjectId failed for value "" (type string) at path "category" for model "Product"	GET	/api/products/?category=	http://localhost:5173
+01-03-2023	14:22:50	776b9654-0fc9-4cb0-a1c9-0b03c414731c	ReferenceError: Category is not defined	GET	/api/products/?category=	http://localhost:5173
+01-03-2023	14:23:48	6c6ade3b-2e9e-43be-a5d0-787b9072210e	ReferenceError: Blog is not defined	GET	/api/products/?category=	http://localhost:5173
+01-03-2023	19:38:27	70b3a1a4-2e02-4bda-b8b6-4c6da951d556	TypeError: images is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:42:47	c731837c-8e27-442a-bed8-fd954a8e8237	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:43:05	e6017a2e-4204-4e73-a10d-0b9871c81ac1	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:44:19	378bf205-bace-4394-a685-89cca4b98215	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:45:14	60dc7212-d453-472b-acd3-b675f182dbbd	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:54:03	78108af4-04d4-4c3f-b88c-535c993146d1	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:55:33	78082193-138a-4988-8f78-fe91e3629856	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:56:24	9b4578d3-da63-4fd6-8170-9f86e5f4480d	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:57:00	a232bbbe-bb74-45ea-8e41-79c4968e27a7	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	19:58:47	6ddfc76c-eeeb-4635-885e-1790fbf6e7a9	TypeError: files is not iterable	POST	/api/products	http://localhost:5173
+01-03-2023	20:26:27	a49f87f6-2e3f-4799-82b1-e7e6a1510d1e	Error: TypeError: Cannot read properties of undefined (reading 'files')	POST	/api/products	http://localhost:5173
+01-03-2023	20:28:03	c722568e-5f7b-4c85-97de-5da35ffca8f1	Error: Error: E:\projects\rizal-mart\server\public\compressedImages\images-1677682683806-9.516081845362842e+23.jpeg: unable to open for write
+windows error: The system cannot find the file specified.
+
+	POST	/api/products	http://localhost:5173
+01-03-2023	20:30:43	731db27b-177d-43ff-a0a7-8d1431cb9fb0	Error: Error: E:\projects\rizal-mart\server\public\compressedImages\images-1677682843845-3.599090245085814e+23.jpeg: unable to open for write
+windows error: The system cannot find the file specified.
+
+	POST	/api/products	http://localhost:5173
+01-03-2023	20:32:25	208a4ee1-5137-4504-a29f-4958ca7f6ee9	Error: Error: E:\projects\rizal-mart\server\public\compressedImages\images-1677682945700-8.802521075286347e+23.jpeg: unable to open for write
+windows error: The system cannot find the file specified.
+
+	POST	/api/products	http://localhost:5173
+01-03-2023	20:34:07	26cf0511-236e-4b4f-a02b-38c85e7c0f7f	Error: Error: E:\projects\rizal-mart\server\public\compressedImages\images-1677683047863-8.542748223613399e+23.jpeg: unable to open for write
+windows error: The system cannot find the file specified.
+
+	POST	/api/products	http://localhost:5173
+01-03-2023	20:34:48	ac9377b4-d4c1-4fa8-b8cf-7740adb0ad33	Error: Error: E:\projects\rizal-mart\server\public\compressedImages\images-1677683088059-6.200670143478908e+23.jpeg: unable to open for write
+windows error: The system cannot find the file specified.
+
+	POST	/api/products	http://localhost:5173
+01-03-2023	20:35:20	f2b973ab-683d-483d-bc47-c722eda8f55e	Error: Error: E:\projects\rizal-mart\server\public\compressedImages\images-1677683120508-9.865860878618176e+23.jpeg: unable to open for write
+windows error: The system cannot find the file specified.
+
+	POST	/api/products	http://localhost:5173
+01-03-2023	20:36:46	216a37db-4acb-4baa-b26f-02e431ef204e	Error: TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received an instance of Object	POST	/api/products	http://localhost:5173
+01-03-2023	20:37:30	cfe5f730-49e3-4584-929a-f5a825683244	Error: ReferenceError: originalImage is not defined	POST	/api/products	http://localhost:5173
+01-03-2023	22:55:44	5eceb4a8-cef4-4057-bccc-324124b532ec	MongoServerError: E11000 duplicate key error collection: store.products index: slug_1 dup key: { slug: null }	POST	/api/products	http://localhost:5173
+02-03-2023	00:05:53	fe6f32a5-2253-4e3d-a89f-c9768ff156b8	ReferenceError: mongoose is not defined	GET	/api/products/?categories=63ff845312d70164aa7d6b66&popular=&featured=&limit=20&page=	http://localhost:5173
+02-03-2023	00:06:17	598dcd25-5cbd-4046-b964-194af6380fbf	ReferenceError: mongoose is not defined	GET	/api/products/?categories=63ff845312d70164aa7d6b66&popular=&featured=&limit=20&page=	http://localhost:5173
+05-03-2023	13:29:16	4cb1e27b-5873-41b7-a5aa-3a001451d67d	Error: ENOENT: no such file or directory, stat 'E:\projects\rizal-mart\server\routes\views\404.html'	GET	/manish	undefined
+05-03-2023	13:29:16	cf1bd7b0-cf72-4900-b99e-20c73d8f9f9a	Error: ENOENT: no such file or directory, stat 'E:\projects\rizal-mart\server\routes\views\404.html'	GET	/manish	undefined
