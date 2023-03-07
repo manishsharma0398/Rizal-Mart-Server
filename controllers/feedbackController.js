@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 
-const Feedback = require("../models/Feedback");
+const Feedback = require("../models/FeedBack");
 const { checkValidMongoId } = require("../utils/validMongoId");
 
 module.exports.createFeedback = asyncHandler(async (req, res) => {
