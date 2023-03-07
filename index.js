@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(path.join(__dirname, "public")));
 
 // routes
-app.use("/", require("./routes/root"));
+app.get("/", require("./routes/root"));
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
