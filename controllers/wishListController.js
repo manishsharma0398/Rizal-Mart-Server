@@ -1,7 +1,6 @@
-const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
-
 const WishList = require("../models/WishList");
+const asyncHandler = require("express-async-handler");
 const { checkValidMongoId } = require("../utils/validMongoId");
 
 module.exports.addToWishlist = asyncHandler(async (req, res) => {
@@ -12,19 +11,37 @@ module.exports.addToWishlist = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Product ID required" });
 
   // check if product exist in wishlist for that user
-  const productExist = await WishList.findOne({
-    product: productId,
+  let userWishlistProducts = await WishList.findOne({
     user: userId,
   }).exec();
 
-  if (productExist)
-    return res.status(400).json({ message: "Product already in wishlist" });
+  if (!userWishlistProducts) {
+    const newWishList = await (
+      await WishList.create({
+        user: userId,
+        products: [{ product: productId }],
+      })
+    ).populate("products.product");
+    return res.status(201).json(newWishList.products);
+  }
 
-  const newWishList = await WishList.create({
-    product: productId,
-    user: userId,
-  });
-  return res.status(201).json(newWishList);
+  const productExistInWishlist = userWishlistProducts?.products?.filter(
+    (product) => product.product.toString() === productId
+  );
+
+  if (productExistInWishlist.length > 0) {
+    userWishlistProducts.products = userWishlistProducts?.products?.filter(
+      (product) => product.product.toString() !== productId
+    );
+  } else {
+    userWishlistProducts.products.push({ product: productId });
+  }
+
+  const newData = await (
+    await userWishlistProducts.save()
+  ).populate("products.product");
+
+  return res.status(201).json(newData.products);
 });
 
 module.exports.removeFromWishlist = asyncHandler(async (req, res) => {
@@ -43,10 +60,12 @@ module.exports.removeFromWishlist = asyncHandler(async (req, res) => {
 });
 
 module.exports.getWishList = asyncHandler(async (req, res) => {
-  const wishList = await WishList.find({ user: req.userId });
+  const wishList = await WishList.find({ user: req.userId }).populate(
+    "products.product"
+  );
   // .select("-__v -createdAt -updatedAt")
   // .exec();
-  return res.json(wishList);
+  return res.json(wishList.products);
 });
 
 module.exports.getAWishList = asyncHandler(async (req, res) => {
