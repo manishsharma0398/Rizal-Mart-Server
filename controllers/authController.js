@@ -10,6 +10,7 @@ const { generateRefreshToken } = require("../config/refreshToken");
 const { isValidMongoId } = require("../utils/validMongoId");
 const { isEmailValid } = require("../utils/emailValidator");
 const { sendEmail } = require("./emailController");
+const Cart = require("../models/Cart");
 
 module.exports.login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -40,6 +41,12 @@ module.exports.login = asyncHandler(async (req, res) => {
     maxAge: 1000 * 60 * 60 * 24 * 3,
   });
 
+  let userCart = await Cart.findOne({ user: user._id }).populate(
+    "products.product"
+  );
+  if (!userCart) userCart = [];
+  if (userCart) userCart = userCart?.products || [];
+
   return res.status(200).json({
     user: {
       _id: updatedUser?._id,
@@ -48,6 +55,7 @@ module.exports.login = asyncHandler(async (req, res) => {
       role: updatedUser?.role,
       email: updatedUser?.email,
       mobile: updatedUser?.mobile,
+      userCart,
     },
     token: generateToken(updatedUser._id),
   });

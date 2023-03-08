@@ -9,7 +9,9 @@ const {
 
 module.exports.addToCart = asyncHandler(async (req, res) => {
   const userId = req.userId;
-  const productId = req.body?.product;
+  const productId = req.body?.productId;
+  const productQuantity = req.body?.quantity;
+
   isValidProductId(productId);
 
   const product = await Product.findById(productId).select("price").exec();
@@ -23,7 +25,7 @@ module.exports.addToCart = asyncHandler(async (req, res) => {
 
   const newProduct = {
     product: product._id,
-    count: 1,
+    count: productQuantity,
   };
 
   //   user cart is totally empty
@@ -35,84 +37,58 @@ module.exports.addToCart = asyncHandler(async (req, res) => {
     return res.status(201).json(newCart);
   }
 
-  const productExistInCart = cartExist.products.filter(
-    (product) => product.product.toString() === productId
+  const productExistInCart = cartExist?.products?.filter(
+    (product) => product.product._id.toString() === productId
   );
 
   if (productExistInCart.length > 0) {
-    productExistInCart[0].count += 1;
+    productExistInCart[0].count = productQuantity;
   } else {
     cartExist.products.push(newProduct);
   }
 
-  await cartExist.save();
-  return res.json(cartExist);
+  const d = await (await cartExist.save()).populate("products.product");
+
+  return res.json(d.products);
+  // return res.json(cartExist.products);
 });
 
 // done
 module.exports.removeFromCart = asyncHandler(async (req, res) => {
   const userId = req.userId;
-  const productId = req.body?.product;
-  const cartId = req.params?.cartId;
-  //   isValidProductId(cartId);
-
-  const product = await Product.findById(productId).select("price").exec();
-
-  if (!product) return res.status(400).json({ message: "Product Not Found" });
+  const cartItemId = req.params?.cartId;
 
   // check if user cart exist
-  const cartExist = await Cart.findById(cartId).exec();
+  const cart = await Cart.findOne({ user: userId })
+    .populate("products.product")
+    .exec();
 
-  //   user don't have cart
-  if (!cartExist) return res.status(400).json({ message: "Cart Empty" });
+  // user don't have cart
+  if (!cart) return res.status(400).json({ message: "Cart Empty" });
 
-  const productExistInCart = cartExist.products.filter(
-    (product) => product.product.toString() === productId
+  const newCart = cart.products.filter(
+    (product) => product._id.toString() !== cartItemId
   );
 
-  if (!productExistInCart.length)
-    return res
-      .status(400)
-      .json({ message: "This product does not exist in user cart" });
+  cart.products = newCart;
 
-  //   if count is 1 remove from cart
-  if (productExistInCart[0].count === 1) {
-    cartExist.products = cartExist.products.filter(
-      (product) => product.product.toString() !== productId
-    );
-  } else {
-    productExistInCart[0].count -= 1;
-    productExistInCart[0].price = product.price;
-  }
-
-  cartExist.total = cartExist.products.reduce(
-    (total, val) => total + val.count * val.price,
-    0
-  );
-  await cartExist.save();
-  return res.json(cartExist);
+  await cart.save();
+  return res.status(200).json(cart.products);
 });
 
 // get cart items for a user
 module.exports.getCartItems = asyncHandler(async (req, res) => {
   const userId = req?.userId;
+
   if (!checkValidMongoId(userId))
     return res.status(400).json({ message: "Invalid ID" });
 
-  const cartItems = await Cart.findOne({ user: userId })
-    .populate([
-      {
-        path: "products.product",
-        select: "price title images",
-      },
-      {
-        path: "couponApplied",
-        select: "expiry name discount _id",
-      },
-    ])
+  let cartItems = await Cart.findOne({ user: userId })
+    .populate("products.product")
     .exec();
 
-  if (!cartItems) return res.status(404).json({ message: "No category Found" });
+  if (!cartItems) cartItems = [];
+  if (cartItems) cartItems = cartItems?.products;
 
   return res.json(cartItems);
 });

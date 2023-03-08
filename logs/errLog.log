@@ -174,3 +174,7 @@ windows error: The system cannot find the file specified.
 02-03-2023	00:06:17	598dcd25-5cbd-4046-b964-194af6380fbf	ReferenceError: mongoose is not defined	GET	/api/products/?categories=63ff845312d70164aa7d6b66&popular=&featured=&limit=20&page=	http://localhost:5173
 05-03-2023	13:29:16	4cb1e27b-5873-41b7-a5aa-3a001451d67d	Error: ENOENT: no such file or directory, stat 'E:\projects\rizal-mart\server\routes\views\404.html'	GET	/manish	undefined
 05-03-2023	13:29:16	cf1bd7b0-cf72-4900-b99e-20c73d8f9f9a	Error: ENOENT: no such file or directory, stat 'E:\projects\rizal-mart\server\routes\views\404.html'	GET	/manish	undefined
+08-03-2023	15:44:12	53da3a6b-c734-49c5-88de-610874325a96	ValidationError: Cart validation failed: products.2.count: Path `count` is required.	POST	/api/cart	http://localhost:5173
+08-03-2023	15:54:40	a3a8f25d-9b18-4d54-8c1e-18246b7fdbb0	StrictPopulateError: Cannot populate path `product` because it is not in your schema. Set the `strictPopulate` option to false to override.	POST	/api/cart	http://localhost:5173
+08-03-2023	17:42:49	f35a3c70-9606-44eb-a91a-9d49fe84ee95	ValidationError: Cart validation failed: products.0.count: Path `count` is required.	POST	/api/cart	http://localhost:5173
+08-03-2023	20:16:09	3a31785f-0d6a-4c8d-b7f4-50ac3442adfe	TypeError: Assignment to constant variable.	GET	/api/cart	http://localhost:5173
