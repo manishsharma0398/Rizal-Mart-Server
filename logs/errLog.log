@@ -178,3 +178,6 @@ windows error: The system cannot find the file specified.
 08-03-2023	15:54:40	a3a8f25d-9b18-4d54-8c1e-18246b7fdbb0	StrictPopulateError: Cannot populate path `product` because it is not in your schema. Set the `strictPopulate` option to false to override.	POST	/api/cart	http://localhost:5173
 08-03-2023	17:42:49	f35a3c70-9606-44eb-a91a-9d49fe84ee95	ValidationError: Cart validation failed: products.0.count: Path `count` is required.	POST	/api/cart	http://localhost:5173
 08-03-2023	20:16:09	3a31785f-0d6a-4c8d-b7f4-50ac3442adfe	TypeError: Assignment to constant variable.	GET	/api/cart	http://localhost:5173
+08-03-2023	22:57:39	51338b14-76e0-495b-b37b-f67905c9d843	Error: Invalid input	POST	/api/products	http://localhost:5173
+08-03-2023	23:03:34	954a33db-5fe9-4454-9bca-d0852861a54c	ReferenceError: fs is not defined	POST	/api/products	http://localhost:5173
+08-03-2023	23:05:01	789dbe36-2a24-4d60-bbf6-6edccadda5e2	ReferenceError: uploadedImagesUrl is not defined	POST	/api/products	http://localhost:5173

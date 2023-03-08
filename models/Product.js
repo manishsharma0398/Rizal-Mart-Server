@@ -64,6 +64,18 @@ var productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    bannerProduct: {
+      type: Boolean,
+      default: false,
+    },
+    banner: {
+      title: {
+        type: String,
+      },
+      text: {
+        type: String,
+      },
+    },
   },
   { timestamps: true }
 );

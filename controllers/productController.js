@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const fs = require("fs");
 
 const Product = require("../models/Product");
 const Category = require("../models/Category");
@@ -19,7 +20,7 @@ module.exports.addProduct = asyncHandler(async (req, res) => {
 
   for (const file of files) {
     const originalImage = file?.path;
-    const compressedImage = await compressImage(originalImage);
+    const compressedImage = await compressImage(file);
 
     const newPath = await cloudinaryUploadImg(compressedImage, "rizal-mart");
 
@@ -39,7 +40,7 @@ module.exports.addProduct = asyncHandler(async (req, res) => {
   const newProduct = await Product.create({
     ...productData,
     seller: req.userId,
-    images: uploadedImagesUrl,
+    images,
   });
 
   // return res.status(201).json("productCreated");
@@ -110,6 +111,9 @@ module.exports.getAllProducts = asyncHandler(async (req, res) => {
   let categoryToFilter = req.query.categories || "All";
   const featured = req.query.featured || false;
   const popular = req.query.popular || false;
+  const banner = req.query.banner || false;
+
+  console.log(banner);
 
   const categoriesFromDB = await Category.find({}).exec();
 
@@ -131,6 +135,7 @@ module.exports.getAllProducts = asyncHandler(async (req, res) => {
 
   if (featured) query.featured = true;
   if (popular) query.popular = true;
+  if (banner) query.showBanner = true;
 
   const allProducts = await Product.find(query)
     .sort({ [sort]: sortOrder })
