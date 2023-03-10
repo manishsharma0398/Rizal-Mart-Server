@@ -113,8 +113,6 @@ module.exports.getAllProducts = asyncHandler(async (req, res) => {
   const popular = req.query.popular || false;
   const banner = req.query.banner || false;
 
-  console.log(banner);
-
   const categoriesFromDB = await Category.find({}).exec();
 
   let categoryIds = [];

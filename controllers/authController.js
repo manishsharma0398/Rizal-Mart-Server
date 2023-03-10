@@ -71,30 +71,26 @@ module.exports.handleRefreshToken = asyncHandler(async (req, res) => {
 
   const refreshToken = cookies.jwt;
 
-  jwt.verify(
-    refreshToken,
-    process.env.REFRESH_TOKEN_SECRET,
-    async (err, decoded) => {
-      if (err) {
-        res.statusCode = 403;
-        throw new Error("Forbidden");
-      }
-
-      const user = await User.findOne({ refreshToken })
-        .select("-password")
-        .lean()
-        .exec();
-
-      if (!user) {
-        res.statusCode = 404;
-        throw new Error("No user with this refresh Token");
-      }
-
-      const accessToken = generateToken(user._id);
-
-      res.json({ accessToken });
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN, async (err, decoded) => {
+    if (err) {
+      res.statusCode = 403;
+      throw new Error("Forbidden");
     }
-  );
+
+    const user = await User.findOne({ refreshToken, _id: decoded?.id })
+      .select("-password")
+      .lean()
+      .exec();
+
+    if (!user) {
+      res.statusCode = 404;
+      throw new Error("No user with this refresh Token");
+    }
+
+    const accessToken = generateToken(user._id);
+
+    res.json({ accessToken });
+  });
 });
 
 module.exports.logout = asyncHandler(async (req, res) => {

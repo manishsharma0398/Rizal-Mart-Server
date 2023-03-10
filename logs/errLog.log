@@ -181,3 +181,9 @@ windows error: The system cannot find the file specified.
 08-03-2023	22:57:39	51338b14-76e0-495b-b37b-f67905c9d843	Error: Invalid input	POST	/api/products	http://localhost:5173
 08-03-2023	23:03:34	954a33db-5fe9-4454-9bca-d0852861a54c	ReferenceError: fs is not defined	POST	/api/products	http://localhost:5173
 08-03-2023	23:05:01	789dbe36-2a24-4d60-bbf6-6edccadda5e2	ReferenceError: uploadedImagesUrl is not defined	POST	/api/products	http://localhost:5173
+09-03-2023	11:05:11	49ec135c-77c2-4dab-a30d-ee6cf4a13299	TypeError: Cannot read properties of undefined (reading 'length')	GET	/api/wishlist	http://localhost:5173
+09-03-2023	11:05:11	463e688e-fc24-4f57-aaac-7d63c637a093	TypeError: Cannot read properties of undefined (reading 'length')	GET	/api/wishlist	http://localhost:5173
+09-03-2023	11:29:06	c6eade28-7efe-460c-9573-3524fc04d159	TypeError: Cannot read properties of null (reading 'products')	GET	/api/wishlist	http://localhost:5173
+09-03-2023	11:29:07	3cecd822-fc45-4404-a121-651760cb3fae	TypeError: Cannot read properties of null (reading 'products')	GET	/api/wishlist	http://localhost:5173
+09-03-2023	11:46:09	7618b9ab-7b23-4417-88a3-09f9fb71c73b	TypeError: Cannot read properties of null (reading 'products')	GET	/api/wishlist	http://localhost:5173
+09-03-2023	11:46:09	8edd3885-aa8d-4c0f-9459-34503d52ae0f	TypeError: Cannot read properties of null (reading 'products')	GET	/api/wishlist	http://localhost:5173

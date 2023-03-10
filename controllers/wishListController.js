@@ -60,12 +60,17 @@ module.exports.removeFromWishlist = asyncHandler(async (req, res) => {
 });
 
 module.exports.getWishList = asyncHandler(async (req, res) => {
-  const wishList = await WishList.find({ user: req.userId }).populate(
-    "products.product"
-  );
-  // .select("-__v -createdAt -updatedAt")
-  // .exec();
-  return res.json(wishList.products);
+  const userId = req.userId;
+
+  let userWishlistProducts = await WishList.findOne({
+    user: userId,
+  })
+    .populate("products.product")
+    .exec();
+
+  const products = userWishlistProducts.products || [];
+
+  return res.json(products);
 });
 
 module.exports.getAWishList = asyncHandler(async (req, res) => {
