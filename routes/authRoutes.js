@@ -12,7 +12,7 @@ const {
 const { verifyToken } = require("../middlewares/authMiddleware");
 
 router.post("/login", login);
-router.post("/logout", verifyToken, logout);
+router.post("/logout", logout);
 router.post("/refresh", handleRefreshToken);
 router.put("/password/update", verifyToken, updatePassword);
 router.post("/password/forgot", forgotPassword);

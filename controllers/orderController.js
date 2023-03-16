@@ -2,29 +2,59 @@ const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 
 const Order = require("../models/Order");
+const Profile = require("../models/Profile");
 const { checkValidMongoId } = require("../utils/validMongoId");
 
-module.exports.createNewOrder = asyncHandler(async (req, res) => {
-  const productId = req.body?.productId;
+module.exports.getAddressOfUser = asyncHandler(async (req, res) => {
   const userId = req.userId;
+  const addresss = await Profile.findOne({ user: userId });
+  return res.json(addresss);
+});
 
-  if (!productId)
-    return res.status(400).json({ message: "Product ID required" });
+module.exports.addNewAddress = asyncHandler(async (req, res) => {
+  const userId = req.userId;
+  const userData = req.body;
 
-  // check if product exist in wishlist for that user
-  const productExist = await WishList.findOne({
-    product: productId,
-    user: userId,
-  }).exec();
+  const data = await Profile.findOne({ user: userId });
 
-  if (productExist)
-    return res.status(400).json({ message: "Product already in wishlist" });
+  if (data === null) {
+    const newData = await Profile.create({
+      user: userId,
+      addresses: [
+        {
+          ...userData,
+        },
+      ],
+    });
+    return res.status(201).json(newData);
+  }
 
-  const newWishList = await WishList.create({
-    product: productId,
-    user: userId,
-  });
-  return res.status(201).json(newWishList);
+  const newData = await Profile.findOneAndUpdate(
+    { user: userId },
+    { $push: { addresses: userData } },
+    { new: true }
+  );
+
+  return res.status(201).json(newData);
+});
+
+module.exports.createNewOrder = asyncHandler(async (req, res) => {
+  // const productId = req.body?.productId;
+  // const userId = req.userId;
+  // if (!productId)
+  //   return res.status(400).json({ message: "Product ID required" });
+  // // check if product exist in wishlist for that user
+  // const productExist = await WishList.findOne({
+  //   product: productId,
+  //   user: userId,
+  // }).exec();
+  // if (productExist)
+  //   return res.status(400).json({ message: "Product already in wishlist" });
+  // const newWishList = await WishList.create({
+  //   product: productId,
+  //   user: userId,
+  // });
+  // return res.status(201).json(newWishList);
 });
 
 module.exports.deleteOrder = asyncHandler(async (req, res) => {

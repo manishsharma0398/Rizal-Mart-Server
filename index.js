@@ -42,7 +42,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
-// app.use("/api/images", imageRoutes);
 app.use("/api/coupon", couponRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/category", categoryRoutes);

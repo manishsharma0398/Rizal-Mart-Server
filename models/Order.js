@@ -54,6 +54,10 @@ var orderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    deliveryDetails: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Profile",
+    },
   },
   { timestamps: true }
 );
