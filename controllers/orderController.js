@@ -39,6 +39,18 @@ module.exports.addNewAddress = asyncHandler(async (req, res) => {
 });
 
 module.exports.createNewOrder = asyncHandler(async (req, res) => {
+  const data = req.body;
+  res.json(data);
+
+  // var options = {
+  //   amount: 50000,
+  //   currency: "INR",
+  //   receipt: "order_rcptid_11"
+  // };
+  // instance.orders.create(options, function(err, order) {
+  //   console.log(order);
+  // });
+
   // const productId = req.body?.productId;
   // const userId = req.userId;
   // if (!productId)
