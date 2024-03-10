@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
@@ -7,8 +9,8 @@ const cookieParser = require("cookie-parser");
 const Sentry = require("@sentry/node");
 const { ProfilingIntegration } = require("@sentry/profiling-node");
 
-const corsOptions = require("./config/corsOption");
-const { connectToDB } = require("./config/dbConnect");
+const { connectToDB, corsOptions } = require("./config");
+
 const { errorHandler } = require("./middlewares/errorHandler");
 const { logEvents } = require("./middlewares/logger");
 
@@ -24,7 +26,7 @@ const orderRoutes = require("./routes/orderRoutes");
 // const imageRoutes = require("./routes/imageRoutes");
 const notFoundRoutes = require("./routes/not-found");
 
-require("dotenv").config();
+// connect to DB
 connectToDB();
 
 const PORT = process.env.PORT || 5000;

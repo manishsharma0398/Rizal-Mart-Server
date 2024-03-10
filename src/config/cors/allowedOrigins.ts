@@ -1,4 +1,4 @@
-const allowedOrigins = [
+const allowedOrigins: Array<string> = [
   "http://localhost:5173",
   "rizal-mart-front-end.vercel.app",
   "https://rizal-mart-front-end.vercel.app",
@@ -8,4 +8,4 @@ const allowedOrigins = [
   "https://rizal-mart-front-end-manishsharma0398.vercel.app",
 ];
 
-module.exports = allowedOrigins;
+export default allowedOrigins;
