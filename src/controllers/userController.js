@@ -4,10 +4,7 @@ const User = require("../models/User");
 const { logEvents } = require("../middlewares/logger");
 const { isValidMongoId } = require("../utils/validMongoId");
 
-const {
-  USER_BLOCKED_LOG_FILE,
-  USER_UNBLOCKED_LOG_FILE,
-} = require("../utils/variables");
+const { LOG_FILES } = require("../utils");
 
 module.exports.register = asyncHandler(async (req, res) => {
   const {
@@ -52,7 +49,9 @@ module.exports.getUser = asyncHandler(async (req, res) => {
   isValidMongoId(userId);
 
   try {
-    const user = await User.findById(userId).select("-password").lean();
+    const user = await User.findById(userId)
+      .select("-password -refreshToken")
+      .lean();
     if (!user) return res.status(404).json({ message: "No user found" });
     return res.json(user);
   } catch (error) {
@@ -116,7 +115,7 @@ module.exports.blockUser = asyncHandler(async (req, res) => {
       { new: true }
     ).exec();
 
-    logEvents(`${user._id}: ${user.email}`, USER_BLOCKED_LOG_FILE);
+    logEvents(`${user._id}: ${user.email}`, LOG_FILES.USER_BLOCKED_LOG_FILE);
 
     return res.json({ message: `User ${user._id} blocked` });
   } catch (error) {
@@ -135,7 +134,7 @@ module.exports.unBlockUser = asyncHandler(async (req, res) => {
       { new: true }
     ).exec();
 
-    logEvents(`${user._id}: ${user.email}`, USER_UNBLOCKED_LOG_FILE);
+    logEvents(`${user._id}: ${user.email}`, LOG_FILES.USER_UNBLOCKED_LOG_FILE);
 
     return res.json({ message: `User ${user._id} unblocked` });
   } catch (error) {

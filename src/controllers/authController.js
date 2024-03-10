@@ -5,7 +5,7 @@ const asyncHandler = require("express-async-handler");
 const { logEvents } = require("../middlewares/logger");
 const User = require("../models/User");
 const { generateToken, generateRefreshToken } = require("../config");
-const { COOKIE_NAME, PWD_LOG_FILE } = require("../utils/variables");
+const { COOKIE_NAME, LOG_FILES } = require("../utils/constants");
 const { isValidMongoId } = require("../utils/validMongoId");
 const { isEmailValid } = require("../utils/emailValidator");
 const { sendEmail } = require("./emailController");
@@ -184,7 +184,7 @@ module.exports.resetPassword = asyncHandler(async (req, res) => {
 
   try {
     await user.save();
-    logEvents(`${user.email}:${user._id}`, PWD_LOG_FILE);
+    logEvents(`${user.email}:${user._id}`, LOG_FILES.PWD_LOG_FILE);
     return res.json(user);
   } catch (error) {
     throw new Error(error);
