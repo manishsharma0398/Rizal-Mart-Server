@@ -4,9 +4,8 @@ const asyncHandler = require("express-async-handler");
 
 const { logEvents } = require("../middlewares/logger");
 const User = require("../models/User");
-const { generateToken } = require("../config/jwtToken");
+const { generateToken, generateRefreshToken } = require("../config");
 const { COOKIE_NAME, PWD_LOG_FILE } = require("../utils/variables");
-const { generateRefreshToken } = require("../config/refreshToken");
 const { isValidMongoId } = require("../utils/validMongoId");
 const { isEmailValid } = require("../utils/emailValidator");
 const { sendEmail } = require("./emailController");
