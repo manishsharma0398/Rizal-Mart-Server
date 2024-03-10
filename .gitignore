@@ -3,3 +3,4 @@
 # ignore logs
 /logs/
 *.log
+dist
