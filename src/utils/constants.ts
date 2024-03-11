@@ -1,14 +1,16 @@
 export const ENV_VARS = {
   PORT: process.env.PORT,
   MONGO_USERNAME: process.env.MONGO_USERNAME,
-  MONGO_PASS: process.env.MONGO_PASS,
+  MONGO_PASSWORD: process.env.MONGO_PASSWORD,
   BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS,
   JWT_SECRET: process.env.JWT_SECRET as string,
   REFRESH_TOKEN: process.env.REFRESH_TOKEN as string,
   EMAIL_ID: process.env.EMAIL_ID,
-  EMAIL_PORT: process.env.EMAIL_PORT,
-  EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
   MONGO_URL: process.env.MONGO_URL,
+  MP: process.env.MP,
+  CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 };
 
 export const LOG_FILES = {
