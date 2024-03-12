@@ -1,13 +1,12 @@
 const asyncHandler = require("express-async-handler");
 
-const User = require("../models/User");
+import { UserModel } from "../models";
+
+// const User = require("../models/User");
 const { logEvents } = require("../middlewares/logger");
 const { isValidMongoId } = require("../utils/validMongoId");
 
-const {
-  USER_BLOCKED_LOG_FILE,
-  USER_UNBLOCKED_LOG_FILE,
-} = require("../utils/variables");
+const { LOG_FILES } = require("../utils");
 
 module.exports.register = asyncHandler(async (req, res) => {
   const {
@@ -25,14 +24,14 @@ module.exports.register = asyncHandler(async (req, res) => {
   if (password !== password2)
     return res.status(400).json({ message: "Passwords do not match" });
 
-  const user = await User.findOne({ email }).exec();
+  const user = await UserModel.findOne({ email }).exec();
 
   if (user)
     return res.status(400).json({ message: "Email already registered" });
 
   const { confirmPassword, ...userdata } = req.body;
 
-  await User.create(userdata);
+  await UserModel.create(userdata);
 
   return res.status(201).json({ message: "User created" });
 });
@@ -40,7 +39,7 @@ module.exports.register = asyncHandler(async (req, res) => {
 // Route only accessible to admin
 module.exports.getAllUsers = asyncHandler(async (req, res) => {
   try {
-    const allUsers = await User.find().select("-password").lean();
+    const allUsers = await UserModel.find().select("-password").lean();
     return res.json(allUsers);
   } catch (error) {
     throw new Error(error);
@@ -52,7 +51,9 @@ module.exports.getUser = asyncHandler(async (req, res) => {
   isValidMongoId(userId);
 
   try {
-    const user = await User.findById(userId).select("-password").lean();
+    const user = await UserModel.findById(userId)
+      .select("-password -refreshToken")
+      .lean();
     if (!user) return res.status(404).json({ message: "No user found" });
     return res.json(user);
   } catch (error) {
@@ -80,9 +81,13 @@ module.exports.updateUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Required" });
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
-      new: true,
-    });
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      updatedUserData,
+      {
+        new: true,
+      }
+    );
 
     if (!updatedUser) return res.status(404).json({ message: "No user found" });
 
@@ -97,7 +102,7 @@ module.exports.deleteUser = asyncHandler(async (req, res) => {
   isValidMongoId(userId);
 
   try {
-    const user = await User.findByIdAndDelete(userId);
+    const user = await UserModel.findByIdAndDelete(userId);
     if (!user) return res.status(404).json({ message: "No user found" });
     return res.json({ message: "User deleted" });
   } catch (error) {
@@ -110,13 +115,13 @@ module.exports.blockUser = asyncHandler(async (req, res) => {
   isValidMongoId(userToBlock);
 
   try {
-    const user = await User.findByIdAndUpdate(
+    const user = await UserModel.findByIdAndUpdate(
       userToBlock,
       { blocked: true },
       { new: true }
     ).exec();
 
-    logEvents(`${user._id}: ${user.email}`, USER_BLOCKED_LOG_FILE);
+    logEvents(`${user._id}: ${user.email}`, LOG_FILES.USER_BLOCKED_LOG_FILE);
 
     return res.json({ message: `User ${user._id} blocked` });
   } catch (error) {
@@ -129,13 +134,13 @@ module.exports.unBlockUser = asyncHandler(async (req, res) => {
   isValidMongoId(userId);
 
   try {
-    const user = await User.findByIdAndUpdate(
+    const user = await UserModel.findByIdAndUpdate(
       userId,
       { blocked: false },
       { new: true }
     ).exec();
 
-    logEvents(`${user._id}: ${user.email}`, USER_UNBLOCKED_LOG_FILE);
+    logEvents(`${user._id}: ${user.email}`, LOG_FILES.USER_UNBLOCKED_LOG_FILE);
 
     return res.json({ message: `User ${user._id} unblocked` });
   } catch (error) {
