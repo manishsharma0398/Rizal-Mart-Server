@@ -2,12 +2,11 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const asyncHandler = require("express-async-handler");
 
+import { UserModel } from "@models";
+import { generateToken, generateRefreshToken } from "@config";
+import { COOKIE_NAME, LOG_FILES, isValidMongoId, isEmailValid } from "@utils";
+
 const { logEvents } = require("../middlewares/logger");
-const User = require("../models/User");
-const { generateToken, generateRefreshToken } = require("../config");
-const { COOKIE_NAME, LOG_FILES } = require("../utils/constants");
-const { isValidMongoId } = require("../utils/validMongoId");
-const { isEmailValid } = require("../utils/emailValidator");
 const { sendEmail } = require("./emailController");
 const Cart = require("../models/Cart");
 
@@ -17,7 +16,7 @@ module.exports.login = asyncHandler(async (req, res) => {
   if (!email || !password)
     return res.status(400).json({ message: "All fields required" });
 
-  const user = await User.findOne({ email }).exec();
+  const user = await UserModel.findOne({ email }).exec();
 
   if (!user) return res.status(400).json({ message: "Email not registered" });
 
@@ -29,7 +28,7 @@ module.exports.login = asyncHandler(async (req, res) => {
 
   const refreshToken = generateRefreshToken(user._id);
 
-  const updatedUser = await User.findByIdAndUpdate(
+  const updatedUser = await UserModel.findByIdAndUpdate(
     user._id,
     { refreshToken },
     { new: true }
@@ -76,7 +75,7 @@ module.exports.handleRefreshToken = asyncHandler(async (req, res) => {
       throw new Error("Forbidden");
     }
 
-    const user = await User.findOne({ refreshToken, _id: decoded?.id })
+    const user = await UserModel.findOne({ refreshToken, _id: decoded?.id })
       .select("-password")
       .lean()
       .exec();
@@ -97,7 +96,7 @@ module.exports.logout = asyncHandler(async (req, res) => {
   if (!cookies[COOKIE_NAME]) return res.sendStatus(204); //No content
   const refreshToken = cookies[COOKIE_NAME];
   try {
-    await User.findOneAndUpdate(
+    await UserModel.findOneAndUpdate(
       refreshToken,
       { refreshToken: "" },
       { new: true }
@@ -118,7 +117,7 @@ module.exports.updatePassword = asyncHandler(async (req, res) => {
   if (!newPassword || newPassword.length < 1 || newPassword === null)
     return res.status(400).json({ message: "Password required" });
 
-  const user = await User.findById(userId).exec();
+  const user = await UserModel.findById(userId).exec();
 
   if (!user) throw new Error("User Do Not Exist!");
 
@@ -137,7 +136,7 @@ module.exports.forgotPassword = asyncHandler(async (req, res) => {
   if (!isEmailValid(email))
     return res.status(400).json({ message: "Invalid Email Id" });
 
-  const user = await User.findOne({ email }).exec();
+  const user = await UserModel.findOne({ email }).exec();
   if (!user) return res.status(404).json({ message: "User Not Found" });
 
   const token = await user.createPasswordResetToken();
@@ -170,7 +169,9 @@ module.exports.resetPassword = asyncHandler(async (req, res) => {
 
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
-  const user = await User.findOne({ passwordResetToken: hashedToken }).exec();
+  const user = await UserModel.findOne({
+    passwordResetToken: hashedToken,
+  }).exec();
   if (!user)
     return res.status(401).json({ message: "Token Expired or Wrong Token" });
 

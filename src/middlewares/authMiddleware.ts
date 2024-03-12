@@ -3,7 +3,7 @@ import { JwtPayload, verify } from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 
 import { ENV_VARS } from "@utils";
-import { findById } from "../models/User";
+import { UserModel } from "@models";
 
 declare global {
   namespace Express {
@@ -32,7 +32,7 @@ export const verifyToken = asyncHandler(
 
     verify(token, ENV_VARS.JWT_SECRET, async (err, decoded) => {
       if (err) return res.status(403).json({ message: "Forbidden" });
-      const user = await findById((decoded as JwtPayload).id)
+      const user = await UserModel.findById((decoded as JwtPayload).id)
         .select("-password")
         .lean()
         .exec();
@@ -44,7 +44,7 @@ export const verifyToken = asyncHandler(
 );
 
 export const isAdmin = asyncHandler(async (req, res, next) => {
-  const user = await findById(req.userId).lean().exec();
+  const user = await UserModel.findById(req.userId).lean().exec();
 
   if (user!.role !== "admin") {
     res.statusCode = 401;
